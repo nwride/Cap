@@ -71,7 +71,7 @@ services:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
     volumes:
-      - cap-mysql-data:/var/lib/mysql
+      - /docker/cap/mysql:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "cap", "-p${MYSQL_PASSWORD:-cap-local-pwd-123}"]
       interval: 10s
@@ -93,7 +93,7 @@ services:
       - "${MINIO_PORT:-9000}:9000"
       - "${MINIO_CONSOLE_PORT:-9001}:9001"
     volumes:
-      - cap-minio-data:/data
+      - /docker/minio:/data
     healthcheck:
       test: ["CMD", "mc", "ready", "local"]
       interval: 30s
@@ -122,9 +122,9 @@ services:
     networks:
       - cap-network
 
-volumes:
-  cap-mysql-data:
-  cap-minio-data:
+#volumes:
+ # cap-mysql-data:
+  #cap-minio-data:
 
 networks:
   cap-network:
